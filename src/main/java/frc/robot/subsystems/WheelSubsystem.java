@@ -4,10 +4,13 @@
 
 package frc.robot.subsystems;
 
+import javax.swing.text.Position;
+
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -15,11 +18,9 @@ public class WheelSubsystem extends SubsystemBase {
     // Thread-safe singleton design pattern.
     private static volatile WheelSubsystem instance;
     private static Object mutex = new Object();
-    private static CANSparkMax m_Motor = new CANSparkMax(2, MotorType.kBrushless);
-    private final CANSparkMax motor1 = new CANSparkMax(4, MotorType.kBrushless);
-    private final CANSparkMax motor2 = new CANSparkMax(5, MotorType.kBrushless);
-    private final CANcoder sensor1 = new CANcoder(4);
-    private final CANcoder sensor2 = new CANcoder(5);
+    private final CANSparkMax motor1 = new CANSparkMax(3, MotorType.kBrushless);
+    private final CANSparkMax motor2 = new CANSparkMax(2, MotorType.kBrushless);
+    private final CANcoder motor1Encoder = new CANcoder(10,"swerve");
 
     // private static Level m_Level = Level.LOW;
 
@@ -43,8 +44,24 @@ public class WheelSubsystem extends SubsystemBase {
         super("ExampleSubsystem");
     }
 
-    public static void setspeed(double speed) {
-        m_Motor.set(speed);
+    public void setSpeed1(double speed) {
+        motor1.set(speed);
+    }
+
+    public void setSpeed2(double speed) {
+        motor2.set(speed);
+    }
+    
+    public double getMotor1Position() {
+        double position = Units.rotationsToDegrees(motor1Encoder.getAbsolutePosition().getValue());
+        return position;
+
+    }
+    public void setMotor1Speed(double speed) {
+        motor1.set(speed);
+    }
+    public void setMotor2Speed(double speed) {
+        motor2.set(speed);
     }
 
 
@@ -53,6 +70,6 @@ public class WheelSubsystem extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
     }
-    
+
 
 }
