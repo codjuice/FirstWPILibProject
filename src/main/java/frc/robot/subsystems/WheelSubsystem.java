@@ -18,9 +18,9 @@ public class WheelSubsystem extends SubsystemBase {
     // Thread-safe singleton design pattern.
     private static volatile WheelSubsystem instance;
     private static Object mutex = new Object();
-    private final CANSparkMax motor1 = new CANSparkMax(3, MotorType.kBrushless);
-    private final CANSparkMax motor2 = new CANSparkMax(2, MotorType.kBrushless);
-    private final CANcoder motor1Encoder = new CANcoder(10,"swerve");
+    private static final CANSparkMax motor1 = new CANSparkMax(3, MotorType.kBrushless);
+    private static final CANSparkMax motor2 = new CANSparkMax(2, MotorType.kBrushless);
+    private static final CANcoder motor1Encoder = new CANcoder(10,"swerve");
 
     // private static Level m_Level = Level.LOW;
 
@@ -41,7 +41,7 @@ public class WheelSubsystem extends SubsystemBase {
 
     /** Creates a new ExampleSubsystem. */
     public WheelSubsystem() {
-        super("ExampleSubsystem");
+        super("WheelSubsystem");
     }
 
     public void setSpeed1(double speed) {
